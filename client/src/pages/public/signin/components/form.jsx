@@ -1,49 +1,71 @@
-import { useContext, useRef } from "react"
-import logger from "../../../../../../server/utils/logger.js"
+import { useRef, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 const Form = () => {
 
-  // const {
-  //   user,
-  //   sign_in,
-  //   sign_out,
-  // } = useContext(UserContext)
+  const navigate = useNavigate()
 
-  const usernameRef = useRef()
+  const emailRef = useRef()
   const passwordRef = useRef()
+  const [error, setError] = useState('')
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault()
+  const handleSubmit = async e => {
+    e.preventDefault();
+    // setError('');
 
-  //   const userForm = {
-  //     username: usernameRef.current.value,
-  //     password: passwordRef.current.value
-  //   }
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
 
-  //   logger.info("userForm", userForm)
-    
-  // }
+    try {
+      const res = await fetch('http://localhost:8080/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || 'Failed to sign in');
+        return;
+      }
+
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+
+      navigate('/projects');
+    } catch (err) {
+      console.error(err);
+      setError('Something went wrong');
+    }
+  };
 
   return (
-    <form action="">
+    <form onSubmit={ handleSubmit }>
       <div>
-        <label htmlFor="">Username</label>
+        <label htmlFor="email">Email</label>
         <input
-          id='username'
-          name='username'
+          id='email'
+          name='email'
           type="text"
-          ref={ usernameRef }
+          ref={ emailRef }
+          required
         />
       </div>
       <div>
-        <label htmlFor="">Password</label>
+        <label htmlFor="password">Password</label>
         <input
           id='password'
           name='password'
           type="password"
           ref={ passwordRef }
+          required
         />
       </div>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <button type="submit">Sign In</button>
     </form>
   )
 }

@@ -1,4 +1,5 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 const Form = () => {
 
@@ -11,8 +12,54 @@ const Form = () => {
   const phoneRef = useRef()
   const locationRef = useRef()
 
+  const [message, setMessage] = useState("")
+  const [error, setError] = useState("")
+
+  const navigate = useNavigate()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setMessage("");
+
+    const payload = {
+      name: nameRef.current.value,
+      username: usernameRef.current.value,
+      password: passwordRef.current.value,
+      email: emailRef.current.value,
+      organization: organizationRef.current.value,
+      role: roleRef.current.value,
+      phone: phoneRef.current.value,
+      location: locationRef.current.value,
+    };
+
+    try {
+      const res = await fetch("http://localhost:8080/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || "Signup failed");
+        return;
+      }
+
+      // Save token and user (optional)
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+
+      setMessage("Signup successful!");
+      navigate('/projects')
+    } catch (err) {
+      setError("Server error. Please try again later.", err);
+    }
+  };
+
   return (
-    <form action="">
+    <form onSubmit={ handleSubmit }>
       <div>
         <label htmlFor="">Name</label>
         <input
@@ -65,8 +112,8 @@ const Form = () => {
           name='role'
           ref={ roleRef }
         >
-          <option value="admin">Admin</option>
           <option value="engineer">Engineer</option>
+          <option value="admin">Admin</option>
           <option value="technician">Technician</option>
         </select>
       </div>
@@ -88,6 +135,10 @@ const Form = () => {
           ref={ locationRef }
         />
       </div>
+      <button type="submit">Sign Up</button>
+
+      {message && <p style={{ color: "green" }}>{message}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
     </form>
   )
 }
