@@ -1,5 +1,6 @@
 import { useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { signUpUser } from "../../../../services/auth"
 
 const Form = () => {
 
@@ -34,20 +35,8 @@ const Form = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:8080/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const data = await signUpUser(payload) //res.json();
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data.error || "Signup failed");
-        return;
-      }
-
-      // Save token and user (optional)
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 

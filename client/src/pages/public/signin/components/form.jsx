@@ -1,5 +1,6 @@
 import { useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { signInUser } from "../../../../services/auth"
 
 const Form = () => {
 
@@ -11,26 +12,12 @@ const Form = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    // setError('');
 
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
     try {
-      const res = await fetch('http://localhost:8080/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data.error || 'Failed to sign in');
-        return;
-      }
+      const data = await signInUser(email, password)//res.json();
 
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));

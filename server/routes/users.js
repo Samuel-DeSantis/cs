@@ -1,11 +1,17 @@
 import express from 'express';
 
 import User from '../models/user.js';
-import { Auth } from '../middleware/index.js';
+import { Auth, Token } from '../middleware/index.js';
+import logger from '../utils/logger.js';
 
 const router = express.Router();
 
-router.post('/signup', async (req, res) => {
+router.post('/sign_up', async (req, res) => {
+
+  logger.info({
+    route: 'POST /api/auth/signup', 
+    content: req.body
+  });
   try {
     const { 
       name,
@@ -34,8 +40,11 @@ router.post('/signup', async (req, res) => {
       organization,
     });
 
+    const token = Token.generate({ id: user._id });
+
     res.status(201).json({
       message: 'User created successfully',
+      token,
       user: {
         id: user._id,
         name: user.name,
@@ -52,7 +61,7 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-router.post('/login', async (req, res) => {
+router.post('/sign_in', async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -62,8 +71,11 @@ router.post('/login', async (req, res) => {
     const is_match = await Auth.comparePassword(password, user.password_hash);
     if (!is_match) return res.status(401).json({ error: 'Invalid credentials' });
 
+    const token = Token.generate({ id: user._id });
+
     res.json({
       message: 'Login successful',
+      token,
       user: {
         id: user._id,
         name: user.name,
