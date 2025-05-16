@@ -17,6 +17,8 @@ router.route('/')
 router.route('/:id')
   .get(getCircuit)
   .put(updateCircuit)
-  .delete(deleteCircuit);
+
+router.route('/delete')
+  .post(deleteCircuit);
 
 export default router

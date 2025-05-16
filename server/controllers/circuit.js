@@ -1,4 +1,5 @@
 import Circuit from '../models/circuit.js';
+import Project from '../models/project.js';
 
 // GET /circuits/:id
 export const getCircuit = async (req, res) => {
@@ -23,11 +24,20 @@ export const getAllCircuits = async (req, res) => {
 
 // POST /circuits
 export const createCircuit = async (req, res) => {
+  const { project_id, circuit } = req.body
+
+  console.log('createCircuit', { project_id, circuit })
+
   try {
-    const circuit = await Circuit.create(req.body);
-    res.status(201).json({ message: 'Circuit created', circuit });
+    const new_circuit = await Circuit.create({ ...circuit })
+    await Project.findByIdAndUpdate(
+      project_id, 
+      { $push: { circuits: new_circuit._id }},
+      { new: true }
+    )
+    res.status(201).json({ message: 'Circuit created', circuit })
   } catch (err) {
-    res.status(500).json({ error: 'Failed to create circuit' });
+    res.status(500).json({ error: 'Failed to create circuit' })
   }
 };
 
@@ -47,8 +57,14 @@ export const updateCircuit = async (req, res) => {
 
 // DELETE /circuits/:id
 export const deleteCircuit = async (req, res) => {
+  console.log('deleteCircuit', req.body)
   try {
-    const deleted = await Circuit.findByIdAndDelete(req.params.id);
+    const deleted = await Circuit.findByIdAndDelete(req.body.circuit_id)
+    await Project.findByIdAndUpdate(
+      req.body.project_id, 
+      { $pull: { circuits: req.body.circuit_id }},
+      { new: true }
+    )
     if (!deleted) return res.status(404).json({ error: 'Circuit not found' });
     res.json({ message: 'Circuit deleted' });
   } catch (err) {

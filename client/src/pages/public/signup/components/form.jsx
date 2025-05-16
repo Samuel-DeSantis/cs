@@ -58,6 +58,7 @@ const Form = () => {
           ref={ nameRef }
         />
       </div>
+
       <div>
         <label htmlFor="">Username</label>
         <input
@@ -67,6 +68,7 @@ const Form = () => {
           ref={ usernameRef }
         />
       </div>
+
       <div>
         <label htmlFor="">Password</label>
         <input
@@ -76,6 +78,7 @@ const Form = () => {
           ref={ passwordRef }
         />
       </div>
+
       <div>
         <label htmlFor="">Email</label>
         <input
@@ -85,6 +88,7 @@ const Form = () => {
           ref={ emailRef }
         />
       </div>
+
       <div>
         <label htmlFor="">Organization</label>
         <input
@@ -94,6 +98,7 @@ const Form = () => {
           ref={ organizationRef }
         />
       </div>
+
       <div>
         <label htmlFor="">Role</label>
         <select
@@ -106,6 +111,7 @@ const Form = () => {
           <option value="technician">Technician</option>
         </select>
       </div>
+
       <div>
         <label htmlFor="">Phone</label>
         <input
@@ -115,6 +121,7 @@ const Form = () => {
           ref={ phoneRef }
         />
       </div>
+      
       <div>
         <label htmlFor="">Location</label>
         <input
@@ -126,8 +133,8 @@ const Form = () => {
       </div>
       <button type="submit">Sign Up</button>
 
-      {message && <p style={{ color: "green" }}>{message}</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {message && <p style={{ color: "green" }}>{ message }</p>}
+      {error && <p style={{ color: "red" }}>{ error }</p>}
     </form>
   )
 }

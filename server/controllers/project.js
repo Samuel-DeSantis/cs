@@ -38,6 +38,7 @@ export const deleteProject = async (req, res) => {
 
 // POST /projects
 export const createProject = async (req, res) => {
+  console.log(req.body)
   try {
     const project = await Project.create(req.body);
     res.status(201).json({ message: 'Project created', project });
@@ -49,7 +50,9 @@ export const createProject = async (req, res) => {
 // GET /projects
 export const getAllProjects = async (req, res) => {
   try {
-    const projects = await Project.find().populate('users').populate('circuits');
+    const projects = await Project.find({ users: req.user.id })
+      .populate('users')
+      .populate('circuits');
     res.json(projects);
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch projects' });

@@ -7,8 +7,11 @@ import {
   updateProject,
   deleteProject,
 } from '../controllers/project.js';
+import { authenticateToken } from '../middleware/authenticateToken.js';
 
 const router = express.Router();
+
+router.use(authenticateToken)
 
 router.route('/')
   .get(getAllProjects)

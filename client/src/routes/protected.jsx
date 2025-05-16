@@ -1,7 +1,8 @@
 import Protected from "../pages/components/Protected"
-import Projects from "../pages/protected/projects/page"
-import Project from "../pages/protected/project/page"
 import Profile from "../pages/protected/profile/page"
+import Projects from "../pages/protected/projects/index/page"
+import Project from "../pages/protected/projects/show/page"
+import NewProject from "../pages/protected/projects/new/page"
 
 export const protectedRouter = [
 	{
@@ -9,16 +10,20 @@ export const protectedRouter = [
 		element: <Protected />,
 		children: [
 			{
+				path: '/profile',
+				element: <Profile />
+			},
+			{
 				path: '/projects',
 				element: <Projects />
 			},
 			{
-				path: '/project',
+				path: '/project/:id',
 				element: <Project />
 			},
 			{
-				path: '/profile',
-				element: <Profile />
+				path: '/project/new',
+				element: <NewProject />
 			},
 		]
 	}
