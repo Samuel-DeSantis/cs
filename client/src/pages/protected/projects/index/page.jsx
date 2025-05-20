@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { getProjects } from '../../../../services/projects'
+import Project from "./components/project";
+
+import Button from '../../../components/library/button/component'
+import styles from "./styles.module.css";
 
 const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -28,28 +32,23 @@ const Projects = () => {
   if (error) return <p style={{ color: 'red' }}>{error}</p>;
 
   return (
-    <div>
-      <h2>Your Projects</h2>
+    <main className={ styles.container }>
+      <h1>Your Projects</h1>
       {projects.length === 0 ? (
         <p>No projects found.</p>
       ) : (
-        <ul>
+        <div className={ styles.projects }>
           {projects.map(project => (
-            <li key={project._id}>
-              <Link to={`/project/${project._id}`}>
-                <strong>{project.name}</strong><br />
-                <span>{project.description}</span>
-              </Link>
-            </li>
+            <Project key={project._id} project={project} />
           ))}
-          <li>
-            <Link to="/project/new">
-              <strong>Create New Project</strong>
-            </Link>
-          </li>
-        </ul>
+        </div>
       )}
-    </div>
+      <div>
+        <Link to="/project/new" tabIndex="-1">
+          <Button>Create new project</Button>
+        </Link>
+      </div>
+    </main>
   );
 };
 

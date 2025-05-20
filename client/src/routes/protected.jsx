@@ -1,4 +1,4 @@
-import Protected from "../pages/components/Protected"
+import Protected from "../pages/components/protected"
 import Profile from "../pages/protected/profile/page"
 import Projects from "../pages/protected/projects/index/page"
 import Project from "../pages/protected/projects/show/page"

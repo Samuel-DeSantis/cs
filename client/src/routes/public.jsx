@@ -1,6 +1,6 @@
-import Layout from "../pages/layout";
+import Layout from "../pages/layouts/layout";
 import Home from "../pages/public/home/page";
-import PageNotFound from '../pages/public/PageNotFound';
+import PageNotFound from '../pages/public/pagenotfound/page';
 import SignIn from "../pages/public/signin/page";
 import SignUp from "../pages/public/signup/page";
 

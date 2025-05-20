@@ -1,7 +1,9 @@
 import { Outlet, Navigate } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
 
-import NavBar from './NavBar';
+import NavBar from '../components/library/navbar/component';
+import Footer from '../components/library/footer/component';
+import Layout from '../layouts/layout';
 
 const Protected = () => {
 
@@ -27,8 +29,10 @@ const Protected = () => {
 
   return (
     <>
-      <NavBar />
+      <Layout />
+      {/* <NavBar />
       <Outlet />
+      <Footer /> */}
     </>
   )
 }

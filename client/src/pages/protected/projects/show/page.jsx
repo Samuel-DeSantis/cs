@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from 'react';
 
 import { getProject } from '../../../../services/projects'; // Adjust the import path as necessary
 import Form from './components/form';
-import CircuitList from './components/CircuitList';
+import Circuits from './components/circuits';
 
 const ProjectPage = () => {
   const { id } = useParams()
@@ -32,7 +32,7 @@ const ProjectPage = () => {
     <div>
       <h2>{ project.name }</h2>
       <p>{ project.description }</p>
-      <CircuitList 
+      <Circuits
         circuits={ project.circuits }
         project_id={ id }
         onDeleteCircuit={ loadProject }

@@ -7,7 +7,10 @@ const defaultOptions = {
 }
 
 const userSchema = new mongoose.Schema({
-	name: {...defaultOptions },
+	name: {
+		type: String,
+		trim: true
+	 },
 	password_hash: { ...defaultOptions },
 	organization: String,
 	role: {

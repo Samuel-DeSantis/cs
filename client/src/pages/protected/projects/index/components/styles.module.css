@@ -1,0 +1,29 @@
+.link {
+	/* border: 1px solid var(--color-black); */
+	max-width: 20rem;
+	padding: 1.5rem;
+	border-radius: 0.5rem;
+	transition: 250ms ease;
+	background-color: var(--color-black);
+}
+
+.link, .link * {
+	text-decoration: none;
+	color: var(--color-white);
+}
+
+.link:hover {
+background-color: #3d3d3d	/* Gray 700 */;
+}
+
+.link:focus {
+	transition: none;
+  outline: 2px solid #3d3d3d;        /* Blue 500 focus ring */
+	background-color: #3d3d3d	/* Gray 700 */;
+  outline-offset: 2px;
+}		
+
+.name {
+	font-size: 1.25rem;
+	font-weight: 700;
+}

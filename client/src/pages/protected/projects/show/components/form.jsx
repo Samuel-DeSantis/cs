@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { createCircuit, updateCircuit } from "../../../../../services/circuits";
 
+import Input from '../../../../components/library/input/component'
+import Button from '../../../../components/library/button/component'
+
 const emptyForm = {
   circuit_number: "",
   designator: "",
@@ -68,208 +71,341 @@ const Form = ({ project_id, onCreate, circuitToEdit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h3>{ circuitToEdit ? "Edit Circuit" : "Create New Circuit" }</h3>
+    <div style={{ width: "300px" }}> 
+      <form onSubmit={handleSubmit}>
+        <h3>{ circuitToEdit ? "Edit Circuit" : "Create New Circuit" }</h3>
 
-      <div>
-        <label htmlFor='circuit_number'>Circuit</label>
-        <input
-          id='circuit_number'
-          name='circuit_number'
-          type='text'
-          value={formData.circuit_number}
-          onChange={handleChange}
-        />
-      </div>
+        <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
+          <Input
+            label='Circuit'
+            id='circuit_number'
+            name='circuit_number'
+            type='text'
+            value={formData.circuit_number}
+            onChange={handleChange}
+          />
+          <Input
+            label='Designator'
+            id='designator'
+            name='designator'
+            type='text'
+            value={formData.designator}
+            onChange={handleChange}
+          />
+          <Input
+            label='Equipment'
+            id='equipment'
+            name='equipment'
+            type='text'
+            value={formData.equipment}
+            onChange={handleChange}
+          />
+          
+          <Input
+            label='Tag'
+            id='tag'
+            name='tag'
+            type='text'
+            value={formData.tag}
+            onChange={handleChange}
+          />
+          
+          <Input
+            label='ID'
+            id='circuit_id'
+            name='circuit_id'
+            type='text'
+            value={formData.circuit_id}
+            onChange={handleChange}
+          />
+          </div>                            
+        <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
 
-      <div>
-        <label htmlFor='designator'>Designator</label>
-        <select
-          id='designator'
-          name='designator'
-          value={formData.designator}
-          onChange={handleChange}
-        >
-          <option value='D'>D - Digital</option>
-          <option value='S'>S - 120V</option>
-          <option value='P'>P - 3-PH</option>
-          <option value='M'>M - +15kV</option>
-          <option value='C'>C - Controls</option>
-          <option value='F'>F - Fiber</option>
-          <option value='T'>T - Telecom</option>
-        </select>
-      </div>
+          <Input
+            label='Drawing'
+            id='drawing'
+            name='drawing'
+            type='text'
+            value={formData.drawing}
+            onChange={handleChange}
+          />
+          <Input
+            label='Length'
+            id='length'
+            name='length'
+            type='text'
+            value={formData.length}
+            onChange={handleChange}
+          />
+          <Input
+            label='Conductors'
+            id='conductors'
+            name='conductors'
+            type='text'
+            value={formData.conductors}
+            onChange={handleChange}
+          />
+          <Input
+            label='Size'
+            id='size'
+            name='size'
+            type='text'
+            value={formData.size}
+            onChange={handleChange}
+          />
 
-      <div>
-        <label htmlFor='equipment'>Equipment</label>
-        <input
-          id='equipment'
-          name='equipment'
-          type='text'
-          value={formData.equipment}
-          onChange={handleChange}
-        />
-      </div>
+          <Input
+            label='Type'
+            id='type'
+            name='type'
+            type='text'
+            value={formData.type}
+            onChange={handleChange}
+            />
+            </div>                            
+        <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
+          <Input
+            label='Sys. Volts.'
+            id='sys_volts'
+            name='sys_volts'
+            type='text'
+            value={formData.sys_volts}
+            onChange={handleChange}
+          />
+          <Input
+            label='Insulation'
+            id='insulation'
+            name='insulation'
+            type='text'
+            value={formData.insulation}
+            onChange={handleChange}
+          />
+          
+          <Input
+            label='From'
+            id='from'
+            name='from'
+            type='text'
+            value={formData.from}
+            onChange={handleChange}
+          />
+          
+          <Input
+            label='To'
+            id='to'
+            name='to'
+            type='text'
+            value={formData.to}
+            onChange={handleChange}
+          />
+          <Input
+            label='Via'
+            id='via'
+            name='via'
+            type='text'
+            value={formData.via}
+            onChange={handleChange}
+          />
+          <Input
+            label='Comments'
+            id='comments'
+            name='comments'
+            type='text'
+            value={formData.comments}
+            onChange={handleChange}
+          />
+          <Input
+            label='Rev'
+            id='rev'
+            name='rev'
+            type='text'
+            value={formData.rev}
+            onChange={handleChange}
+          />
+          </div>                            
 
-      <div>
-        <label htmlFor='tag'>Tag</label>
-        <input
-          id='tag'
-          name='tag'
-          type='text'
-          value={formData.tag}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div>
-        <label htmlFor='circuit_id'>ID</label>
-        <input
-          id='circuit_id'
-          name='circuit_id'
-          type='text'
-          value={formData.circuit_id}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div>
-        <label htmlFor='drawing'>Drawing</label>
-        <input
-          id='drawing'
-          name='drawing'
-          type='text'
-          value={formData.drawing}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div>
-        <label htmlFor='length'>Length</label>
-        <input
-          id='length'
-          name='length'
-          type='number'
-          value={formData.length}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div>
-        <label htmlFor='conductors'>Conductors</label>
-        <input
-          id='conductors'
-          name='conductors'
-          type='text'
-          value={formData.conductors}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div>
-        <label htmlFor='size'>Size</label>
-        <input
-          id='size'
-          name='size'
-          type='text'
-          value={formData.size}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div>
-        <label htmlFor='type'>Type</label>
-        <input
-          id='type'
-          name='type'
-          type='text'
-          value={formData.type}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div>
-        <label htmlFor='sys_volts'>Sys. Volts</label>
-        <input
-          id='sys_volts'
-          name='sys_volts'
-          type='text'
-          value={formData.sys_volts}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div>
-        <label htmlFor='insulation'>Insulation</label>
-        <input
-          id='insulation'
-          name='insulation'
-          type='text'
-          value={formData.insulation}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div>
-        <label htmlFor='from'>From</label>
-        <input
-          id='from'
-          name='from'
-          type='text'
-          value={formData.from}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div>
-        <label htmlFor='to'>To</label>
-        <input
-          id='to'
-          name='to'
-          type='text'
-          value={formData.to}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div>
-        <label htmlFor='via'>Via</label>
-        <input
-          id='via'
-          name='via'
-          type='text'
-          value={formData.via}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div>
-        <label htmlFor='comments'>Comments</label>
-        <input
-          id='comments'
-          name='comments'
-          type='text'
-          value={formData.comments}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div>
-        <label htmlFor='rev'>Rev</label>
-        <input
-          id='rev'
-          name='rev'
-          type='text'
-          value={formData.rev}
-          onChange={handleChange}
-        />
-      </div>
-
-      <button type="submit">{ circuitToEdit ? "Update" : "Create" }</button>
-
-      {message && <p style={{ color: "green" }}>{message}</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </form>
+        {/* <div>
+          <label htmlFor='circuit_number'>Circuit</label>
+          <input
+            id='circuit_number'
+            name='circuit_number'
+            type='text'
+            value={formData.circuit_number}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor='designator'>Designator</label>
+          <select
+            id='designator'
+            name='designator'
+            value={formData.designator}
+            onChange={handleChange}
+          >
+            <option value='D'>D - Digital</option>
+            <option value='S'>S - 120V</option>
+            <option value='P'>P - 3-PH</option>
+            <option value='M'>M - +15kV</option>
+            <option value='C'>C - Controls</option>
+            <option value='F'>F - Fiber</option>
+            <option value='T'>T - Telecom</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor='equipment'>Equipment</label>
+          <input
+            id='equipment'
+            name='equipment'
+            type='text'
+            value={formData.equipment}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor='tag'>Tag</label>
+          <input
+            id='tag'
+            name='tag'
+            type='text'
+            value={formData.tag}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor='circuit_id'>ID</label>
+          <input
+            id='circuit_id'
+            name='circuit_id'
+            type='text'
+            value={formData.circuit_id}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor='drawing'>Drawing</label>
+          <input
+            id='drawing'
+            name='drawing'
+            type='text'
+            value={formData.drawing}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor='length'>Length</label>
+          <input
+            id='length'
+            name='length'
+            type='number'
+            value={formData.length}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor='conductors'>Conductors</label>
+          <input
+            id='conductors'
+            name='conductors'
+            type='text'
+            value={formData.conductors}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor='size'>Size</label>
+          <input
+            id='size'
+            name='size'
+            type='text'
+            value={formData.size}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor='type'>Type</label>
+          <input
+            id='type'
+            name='type'
+            type='text'
+            value={formData.type}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor='sys_volts'>Sys. Volts</label>
+          <input
+            id='sys_volts'
+            name='sys_volts'
+            type='text'
+            value={formData.sys_volts}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor='insulation'>Insulation</label>
+          <input
+            id='insulation'
+            name='insulation'
+            type='text'
+            value={formData.insulation}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor='from'>From</label>
+          <input
+            id='from'
+            name='from'
+            type='text'
+            value={formData.from}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor='to'>To</label>
+          <input
+            id='to'
+            name='to'
+            type='text'
+            value={formData.to}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor='via'>Via</label>
+          <input
+            id='via'
+            name='via'
+            type='text'
+            value={formData.via}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor='comments'>Comments</label>
+          <input
+            id='comments'
+            name='comments'
+            type='text'
+            value={formData.comments}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor='rev'>Rev</label>
+          <input
+            id='rev'
+            name='rev'
+            type='text'
+            value={formData.rev}
+            onChange={handleChange}
+          />
+        </div> */}
+        <Button type='submit'>{ circuitToEdit ? "Update" : "Create" }</Button>
+        {message && <p style={{ color: "green" }}>{message}</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
+      </form>
+    </div>
   );
 };
 
