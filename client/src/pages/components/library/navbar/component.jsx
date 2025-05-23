@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import styles from './styles.module.css'
 import Logo from '../../../../assets/logo.svg'
+import Button from "../button/component";
 
 const NavBar = () => {
 
@@ -25,6 +26,9 @@ const NavBar = () => {
           <>
             <Link to='/projects' className={ styles.link }>Projects</Link>
             <Link to='/profile' className={ styles.link }>Profile</Link>
+            <Link to='/feedback' className={ styles.link }>
+              <Button>Feedback</Button>
+            </Link>
             <a href="#" className={ styles.link } onClick={ logout }>Logout</a>
           </>
         ) : (

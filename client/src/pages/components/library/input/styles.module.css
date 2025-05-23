@@ -1,4 +1,4 @@
-.inputWrapper {
+.wrapper {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xs);
@@ -16,7 +16,7 @@
   font-size: var(--font-size-md);         /* 16px */
   border-radius: 0.375rem; /* 6px */
   border: 1px solid var(--color-black); /* Gray-600 */
-  background-color: var(--color-white);  /* Gray-800 */
+  background-color: white;  /* Gray-800 */
   color: var(--color-black);
   transition: border-color 0.2s, box-shadow 0.2s;
 }

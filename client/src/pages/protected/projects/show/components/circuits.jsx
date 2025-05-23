@@ -1,11 +1,18 @@
 import Circuit from './circuit'
+import Button from '../../../../components/library/button/component'
 
 import styles from './styles.module.css'
+import exporter from '../../../../../utils/exporter'
 
 const CircuitList = ({ circuits, project_id, onDeleteCircuit, onEditCircuit }) => {
   return (
     <div className={ styles.container }>
-      <h2>Circuit List</h2>
+      <div style={{ display: 'flex'}}>
+        <h2>Circuit List</h2>
+        <div style={{ alignContent: 'center', paddingLeft: '10px'}}>
+          <Button onClick={() => exporter(circuits)}>Export</Button>
+        </div>
+      </div>
       {circuits.length === 0 ? (
         <p>No circuits found.</p>
       ) : (

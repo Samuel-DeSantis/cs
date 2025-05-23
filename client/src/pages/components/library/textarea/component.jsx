@@ -1,13 +1,14 @@
 import styles from './styles.module.css'
 
-const Input = ({label, children, ...props }) => {
+const Textarea = ({ label, rows = 4, children, ...props }) => {
   return (
     <div className={ styles.wrapper }>
       {label && <label className={ styles.label }>{ label }</label>}
-      <input className={ styles.input } { ...props }>
+      <textarea className={ styles.textarea } rows={ rows } { ...props }>
         { children }
-      </input>
+      </textarea>
     </div>
   )
-} 
-export default Input
+}
+
+export default Textarea

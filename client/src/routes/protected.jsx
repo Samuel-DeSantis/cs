@@ -1,4 +1,5 @@
 import Protected from "../pages/components/protected"
+import Feedback from "../pages/protected/feedback/page"
 import Profile from "../pages/protected/profile/page"
 import Projects from "../pages/protected/projects/index/page"
 import Project from "../pages/protected/projects/show/page"
@@ -9,6 +10,10 @@ export const protectedRouter = [
 		path: '/',
 		element: <Protected />,
 		children: [
+			{
+				path: '/feedback',
+				element: <Feedback />
+			},
 			{
 				path: '/profile',
 				element: <Profile />
