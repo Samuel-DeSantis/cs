@@ -1,0 +1,11 @@
+.svg {
+	width: 32px;
+	height: 32px;
+	fill: black;
+	transition: 0.25s ease-in-out;
+	cursor: pointer;
+}
+
+.svg:hover {
+	fill: green;
+}
