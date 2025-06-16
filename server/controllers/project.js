@@ -38,7 +38,6 @@ export const deleteProject = async (req, res) => {
 
 // POST /projects
 export const createProject = async (req, res) => {
-  console.log(req.body)
   try {
     const project = await Project.create(req.body);
     res.status(201).json({ message: 'Project created', project });

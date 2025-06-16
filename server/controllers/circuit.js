@@ -1,10 +1,12 @@
 import Circuit from '../models/circuit.js';
 import Project from '../models/project.js';
+import logger from '../utils/logger.js';
 
 // GET /circuits/:id
 export const getCircuit = async (req, res) => {
   try {
     const circuit = await Circuit.findById(req.params.id).populate('project');
+    logger.info(circuit)
     if (!circuit) return res.status(404).json({ error: 'Circuit not found' });
     res.json(circuit);
   } catch (err) {

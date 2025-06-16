@@ -5,8 +5,6 @@ export const createFeedback = async (feedbackData) => {
   const token = localStorage.getItem("token");
   if (!token) { throw new Error('No token found') }
 
-  // console.log(feedbackData)
-
   const res = await fetch(API_URL, {
     method: "POST",
     headers: {
@@ -17,7 +15,6 @@ export const createFeedback = async (feedbackData) => {
   });
 
   const data = await res.json();
-  console.log('here', data)
   if (!res.ok) throw new Error(data.error || "Failed to create project")
 
   return data;

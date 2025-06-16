@@ -1,29 +1,22 @@
 import mongoose from 'mongoose'
 
+const defaultOptions = {
+	type: String,
+	trim: true
+}
+
 const projectSchema = new mongoose.Schema({
-  name: { 
-		type: String, 
-		required: true
-	},
-  description: {
-		type: String,
-		trim: true,
-	},
-  client: {
-		type: String,
-		trim: true,
-	},
-  location: {
-		type: String,
-		trim: true,
-	},
+  name: {	...defaultOptions, required: true	},
+  description: { ...defaultOptions },
+  client: { ...defaultOptions },
+  location: { ...defaultOptions },
+	startDate: Date,
+	endDate: Date,
   status: { 
 		type: String, 
 		enum: ['planning', 'in-progress', 'complete'], 
 		default: 'planning' 
 	},
-  startDate: Date,
-  endDate: Date,
   users: [{ 
 		type: mongoose.Schema.Types.ObjectId, 
 		ref: 'User' 

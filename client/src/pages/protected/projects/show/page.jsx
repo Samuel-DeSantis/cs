@@ -10,11 +10,14 @@ const ProjectPage = () => {
   const [project, setProject] = useState(null)
   const [error, setError] = useState('')
   const [circuitToEdit, setCircuitToEdit] = useState(null)
+  const [circuitToCopy, setCircuitToCopy] = useState(null)
 
   const loadProject = useCallback(async () => {
     try {
       const data = await getProject(id); // pass the id here
       setProject(data)
+      console.log('Project data:', data)
+      setCircuitToEdit(null)
       setCircuitToEdit(null)
     } catch (err) {
       setError(err.message)
@@ -29,19 +32,34 @@ const ProjectPage = () => {
   if (!project) return <p>Loading...</p>
 
   return (
-    <div>
-      <h2>{ project.name }</h2>
-      <p>{ project.description }</p>
+    <div style={{ paddingBottom: '150px' }}>
+      <div>
+        <h2>{ project.name }</h2>
+        {/* <p>Client: { project.client }</p>
+        <p>Location: { project.location }</p>
+        <p>{ project.description }</p>
+        <p>Start: { project.startDate }</p>
+        <p>End: { project.endDate }</p>
+        <div>Users:
+          {project.users.map((user) => (
+            <div key={user.id}>{user.name} ({user.email})</div>
+          ))}
+        </div> */}
+      </div>
+      <Form
+        project_id={ id }
+        onCreate={ loadProject }
+        circuitToEdit={ circuitToEdit }
+        circuitToCopy={ circuitToCopy }
+        setCircuitToEdit={ setCircuitToEdit }
+        setCircuitToCopy={ setCircuitToCopy}
+      />
       <Circuits
         circuits={ project.circuits }
         project_id={ id }
         onDeleteCircuit={ loadProject }
         onEditCircuit={ setCircuitToEdit }
-      />
-      <Form
-        project_id={ id }
-        onCreate={ loadProject }
-        circuitToEdit={ circuitToEdit }
+        onCopyCircuit={ setCircuitToCopy }
       />
     </div>
   );

@@ -8,6 +8,10 @@ const circuitSchema = new mongoose.Schema({
   circuit_id: String,
   drawing: String,
   length: Number,
+  cable: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Cable'
+  },
   conductors: String,
   size: String,
   type: String,
@@ -15,7 +19,7 @@ const circuitSchema = new mongoose.Schema({
   insulation: String,
   from: String,
   to: String,
-  via: String,
+  via: [mongoose.Schema.Types.Mixed],
   comments: String,
   rev: String,
   project: { 

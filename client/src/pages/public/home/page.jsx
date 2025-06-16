@@ -4,9 +4,18 @@ import Input from "../../components/library/input/component";
 
 const Home = () => {
   return (
-    <div>
-      <h1>Welcome to the Home Page</h1>
-      <p>This is a simple home page.</p>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "60vh",
+      }}
+    >
+      <h1>Upgrade from spreadsheets to a Professional Tool</h1>
+      <p>Serpent Schedule electrical circuit schedule is the best way to handle a large amount of data for efficient teams.</p>
+
     </div>
   );
 }

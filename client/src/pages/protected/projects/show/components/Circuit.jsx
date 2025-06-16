@@ -1,10 +1,22 @@
 import { useState } from "react"
-import { deleteCircuit } from "../../../../../services/circuits";
 
-const Circuit = ({ circuit, project_id, onDelete, onEdit }) => {
+import { deleteCircuit } from "../../../../../services/circuits";
+import { gauge } from "../../../../../data/cable";
+import Button from "../../../../components/library/button/component";
+
+import Edit from "../../../../components/library/svgs/edit/component.jsx";
+import Trash from '../../../../components/library/svgs/trash/component.jsx'
+import Copy from "../../../../components/library/svgs/copy/component.jsx";
+
+const Circuit = ({ circuit, project_id, onDelete, onEdit, onCopy }) => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  const units = {
+    imperial: 'ft',
+    metric: 'm'
+  }
 
   const handleDelete = async () => {
     if (!window.confirm(`Delete circuit ${circuit.tag}?`)) return;
@@ -32,24 +44,32 @@ const Circuit = ({ circuit, project_id, onDelete, onEdit }) => {
       <td>{ circuit.tag }</td>
       <td>{ circuit.circuit_id }</td>
       <td>{ circuit.drawing }</td>
-      <td>{ circuit.length }</td>
+      <td>{ circuit.length } { units.imperial }</td>
       <td>{ circuit.conductors }</td>
-      <td>{ circuit.size }</td>
+      <td>{ gauge(circuit.size) }</td>
       <td>{ circuit.type }</td>
-      <td>{ circuit.sys_volts }</td>
-      <td>{ circuit.insulation }</td>
+      <td>{ circuit.sys_volts } V</td>
+      <td>{ circuit.insulation } V</td>
       <td>{ circuit.from }</td>
       <td>{ circuit.to }</td>
       <td>{ circuit.via }</td>
       <td>{ circuit.comments }</td>
       <td>{ circuit.rev }</td>
       <td>
-        <button onClick={() => onEdit?.(circuit)}>EDIT</button>
+        <div onClick={() => onCopy?.(circuit)}>
+          <Copy />
+        </div>
       </td>
       <td>
-        <button onClick={ handleDelete } disabled={ loading }>
-          {loading ? 'Deleting...' : 'DELETE'}
-        </button>
+        <div onClick={() => onEdit?.(circuit)}>
+          <Edit />
+        </div>
+      </td>
+      <td>
+          {loading ? 'Deleting...' : (
+          <div onClick={ handleDelete }>
+            <Trash />
+          </div>)}
         {error && <p style={{ color: 'red' }}>{ error }</p>}
       </td>
     </tr>

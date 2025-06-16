@@ -2,30 +2,24 @@ import mongoose from 'mongoose'
 
 const defaultOptions = {
 	type: String,
-	required: true,
 	trim: true
 }
 
 const userSchema = new mongoose.Schema({
-	name: {
+	name: { ...defaultOptions },
+	password_hash: { 
 		type: String,
+		required: true,
 		trim: true
-	 },
-	password_hash: { ...defaultOptions },
-	organization: String,
+ 	},
+	organization: { ...defaultOptions },
 	role: {
 		type: String,
 		enum: ['admin', 'engineer', 'technician'],
 		default: 'engineer'
 	},
-	phone: {
-		type: String,
-		trim: true
-	},
-	location: {
-		type: String,
-		trim: true
-	},
+	phone: { ...defaultOptions },
+	location: { ...defaultOptions },
 	active: {
 		type: Boolean,
 		default: true

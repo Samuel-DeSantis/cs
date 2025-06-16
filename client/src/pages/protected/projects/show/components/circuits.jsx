@@ -1,10 +1,18 @@
 import Circuit from './circuit'
-import Button from '../../../../components/library/button/component'
-
-import styles from './styles.module.css'
 import exporter from '../../../../../utils/exporter'
 
-const CircuitList = ({ circuits, project_id, onDeleteCircuit, onEditCircuit }) => {
+import Button from '../../../../components/library/button/component'
+import styles from './styles.module.css'
+
+const headers = [ 'Circuit', 'Designator', 'Equipment', 'Tag', 'ID', 'Drawing', 'Length', 'Conductors', 'Size', 'Type', 'Sys. Volts', 'Insulation', 'From', 'To', 'Via', 'Comments', 'Rev', 'Copy', 'Edit', 'Delete']
+
+const CircuitList = ({ circuits, project_id, onDeleteCircuit, onEditCircuit, onCopyCircuit }) => {
+
+  const sortedCircuits = circuits.sort((circuit1, circuit2) => {
+    if (circuit1['circuit_number'] < circuit2['circuit_number']) return -1;
+  })
+  console.log('CircuitList', sortedCircuits)
+
   return (
     <div className={ styles.container }>
       <div style={{ display: 'flex'}}>
@@ -20,25 +28,9 @@ const CircuitList = ({ circuits, project_id, onDeleteCircuit, onEditCircuit }) =
           <table className={ styles.table }>
             <thead>
               <tr>
-                <th>Circuit</th>
-                <th>Designator</th>
-                <th>Equipment</th>
-                <th>Tag</th>
-                <th>ID</th>
-                <th>Drawing</th>
-                <th>Length</th>
-                <th>Conductors</th>
-                <th>Size</th>
-                <th>Type</th>
-                <th>Sys. Volts</th>
-                <th>Insulation</th>
-                <th>From</th>
-                <th>To</th>
-                <th>Via</th>
-                <th>Comments</th>
-                <th>Rev</th>
-                <th>UPDATE</th>
-                <th>DELETE</th>
+                {headers.map((header, index) => (
+                  <th key={ index }>{ header }</th>
+                ))}
               </tr>
             </thead>
             <tbody>
@@ -49,6 +41,7 @@ const CircuitList = ({ circuits, project_id, onDeleteCircuit, onEditCircuit }) =
                   project_id={ project_id }
                   onDelete={ onDeleteCircuit }
                   onEdit={ onEditCircuit}
+                  onCopy={ onCopyCircuit}
                 />
               )}
             </tbody>

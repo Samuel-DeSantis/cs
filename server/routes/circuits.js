@@ -7,8 +7,10 @@ import {
   updateCircuit,
   deleteCircuit,
 } from '../controllers/circuit.js';
+import { authenticateToken } from '../middleware/authenticateToken.js'
 
-const router = express.Router();
+const router = express.Router()
+router.use(authenticateToken)
 
 router.route('/')
   .get(getAllCircuits)
