@@ -6,7 +6,6 @@ const defaultOptions = {
 }
 
 const cableSchema = new mongoose.Schema({
-  cables: { ...defaultOptions },
   conductors: { ...defaultOptions },
   ground: { type: Boolean, default: false },
   size: { ...defaultOptions },

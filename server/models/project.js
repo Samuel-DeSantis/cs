@@ -6,7 +6,7 @@ const defaultOptions = {
 }
 
 const projectSchema = new mongoose.Schema({
-  name: {	...defaultOptions, required: true	},
+  name: {	required: true, ...defaultOptions	},
   description: { ...defaultOptions },
   client: { ...defaultOptions },
   location: { ...defaultOptions },
@@ -21,11 +21,13 @@ const projectSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId, 
 		ref: 'User' 
 	}], // many-to-many link
-  circuits: [{ 
+  equipment: [{ 
 		type: mongoose.Schema.Types.ObjectId, 
-		ref: 'Circuit' 
-	}],
-});
+		ref: 'Equipment' 
+	}], // many-to-many link
+}, {
+  timestamps: true
+})
 
-const Project = mongoose.model('Project', projectSchema);
+const Project = mongoose.model('Project', projectSchema)
 export default Project

@@ -1,32 +1,49 @@
 import mongoose from 'mongoose'
 
+const defaultOptions = {
+  type: String,
+  trim: true
+}
+
 const circuitSchema = new mongoose.Schema({
-  circuit_number: String,
-  designator: String,
-  equipment: String,
-  tag: String,
-  circuit_id: String,
-  drawing: String,
+  circuit_number: { ...defaultOptions },
+  designator: { ...defaultOptions },
+  tag: { ...defaultOptions },
+  circuit_id: { ...defaultOptions },
+  drawing: { ...defaultOptions },
   length: Number,
   cable: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Cable'
+    count: Number,
+    type: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Cable'
+    }, // has one cable
   },
-  conductors: String,
-  size: String,
-  type: String,
-  sys_volts: String,
-  insulation: String,
-  from: String,
-  to: String,
-  via: [mongoose.Schema.Types.Mixed],
-  comments: String,
-  rev: String,
+  from: { 
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Equipment' 
+  },
+  to: { 
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Equipment' 
+  },
+  comments: { ...defaultOptions },
+  rev: { ...defaultOptions },
+  via: [{ 
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Raceway'
+  }],
   project: { 
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Project' 
-  }, // optional back-reference
-});
+  }, // belongs to project
+}, {
+  timestamps: true
+})
 
-const Circuit = mongoose.model('Circuit', circuitSchema);
+circuitSchema.index({ project: 1 })
+circuitSchema.index({ from: 1 })
+circuitSchema.index({ to: 1 })
+
+const Circuit = mongoose.model('Circuit', circuitSchema)
 export default Circuit

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import validator from 'validator'
 
 const defaultOptions = {
 	type: String,
@@ -7,37 +8,53 @@ const defaultOptions = {
 
 const userSchema = new mongoose.Schema({
 	name: { ...defaultOptions },
+	organization: { ...defaultOptions },
+	location: { ...defaultOptions },
 	password_hash: { 
 		type: String,
 		required: true,
-		trim: true
- 	},
-	organization: { ...defaultOptions },
+	},
 	role: {
 		type: String,
 		enum: ['admin', 'engineer', 'technician'],
 		default: 'engineer'
 	},
-	phone: { ...defaultOptions },
-	location: { ...defaultOptions },
 	active: {
 		type: Boolean,
 		default: true
 	},
 	username: {
+		required: true,
 		unique: true,
-		...defaultOptions 
+		...defaultOptions
 	},
 	email: {
-		unique: true,
 		lowercase: true,
-		...defaultOptions 
+		unique: true,
+		required: true,
+		validate: [validator.isEmail, 'Invalid email address'],
+		...defaultOptions
+	},
+	phone: {
+		validate: {
+			validator: v => validator.isMobilePhone(v, 'any'),
+			message: 'Invalid phone number'
+		},
+		...defaultOptions
 	},
 	projects: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Project'
-	}],
-});
+	}], // many-to-many link
+},{ 
+	timestamps: true,
+	toJSON: {
+		transform: (doc, ret) => {
+			delete ret.password_hash
+			return ret
+		}
+	}
+})
 
 const User = mongoose.model('User', userSchema);
 export default User
