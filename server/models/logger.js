@@ -14,13 +14,16 @@ const loggerSchema = new mongoose.Schema({
   action: {
     type: String,
     required: true,
-    enum: [ 'create', 'update', 'delete', 'login', 'logout']
+    enum: ['create', 'update', 'delete', 'sign_in', 'sign_up']
   },
   metadata: {
     type: mongoose.Schema.Types.Mixed,
   }
 }, {
-  timestamps: { createdAt: true }
+  timestamps: {
+    createdAt: true, 
+    updatedAt: false 
+  }
 })
 
 loggerSchema.index({ user: 1 })

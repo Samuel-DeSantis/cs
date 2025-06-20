@@ -1,5 +1,8 @@
 # cs
 
+Check to see how many lines of code there are:
+`git ls-files '*.js' '*.jsx' '*.css' | xargs wc -l`
+
 This is a Node.js-based server application built with Express.js and MongoDB. It provides APIs for managing users, projects, and circuits. The application is modular, with separate routes, controllers, and models for each resource.
 
 ## Features
