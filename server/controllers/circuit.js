@@ -5,8 +5,13 @@ import logger from '../utils/logger.js'
 // GET /circuits/:id
 export const getCircuit = async (req, res) => {
   try {
-    const circuit = await Circuit.findById(req.params.id)
-      .populate('project')
+    logger.info({project_id: req.params.id})
+    
+    const circuit = await Circuit.find({project: req.params.id})
+      .populate('to')
+      .populate('from')
+      .populate('cable.type')
+      .populate('via')
       .lean()
     logger.info(circuit)
     if (!circuit) return res.status(404).json({ error: 'Circuit not found' })

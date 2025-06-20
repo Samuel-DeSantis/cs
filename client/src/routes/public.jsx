@@ -15,13 +15,21 @@ export const publicRouter = [
 				element: <Home />,
 			},
 			{
-				path: '/sign_in',
+				path: 'sign_in',
 				element: <SignIn />,
 			},
 			{
-				path: '/sign_up',
+				path: 'sign_up',
 				element: <SignUp />,
 			},
+			// {
+			// 	path: 'pricing',
+			// 	element: <Pricing />,
+			// },
+			// {
+			// 	path: 'product',
+			// 	element: <Product />,
+			// },
 		]
 	}
 ]

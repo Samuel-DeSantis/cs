@@ -1,7 +1,7 @@
-const API_URL = 'http://localhost:8080/api/circuits'
+const API_URL = 'http://localhost:8080/api/raceways'
 
-// /pages/protected/projects/show/circuits/page.js
-export const getCircuits = async (project_id) => {
+// /pages/protected/projects/show/raceways/page.js
+export const getRaceways = async (project_id) => {
   const token = localStorage.getItem('token');
   if (!token) { throw new Error('No token found') }
 
@@ -14,13 +14,13 @@ export const getCircuits = async (project_id) => {
   });
 
   const data = await response.json();
-  if (!response.ok) throw new Error(data.error || 'Failed to fetch circuits')
+  if (!response.ok) throw new Error(data.error || 'Failed to fetch raceways')
 
   return data;
 }
 
-// /pages/protected/circuits/new/page.js
-export const createCircuit = async (circuitData) => {
+// /pages/protected/racewayss/new/page.js
+export const createRaceway = async (racewaysData) => {
   const token = localStorage.getItem("token");
   if (!token) throw new Error('No token found')
 
@@ -30,18 +30,18 @@ export const createCircuit = async (circuitData) => {
       'Authorization': `Bearer ${token}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(circuitData),
+    body: JSON.stringify(racewaysData),
   });
 
   const data = await res.json();
-  if (!res.ok) throw new Error(data.error || "Failed to create circuit")
+  if (!res.ok) throw new Error(data.error || "Failed to create raceways")
 
   return data;
 };
 
-// /pages/protected/circuits/new/page.js
+// /pages/protected/racewayss/new/page.js
 
-export const deleteCircuit = async (circuit_id) => {
+export const deleteRaceway = async (raceways_id) => {
   const token = localStorage.getItem("token");
   if (!token) throw new Error('No token found')
 
@@ -51,29 +51,29 @@ export const deleteCircuit = async (circuit_id) => {
       'Authorization': `Bearer ${token}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify( circuit_id ),
+    body: JSON.stringify( raceways_id ),
   });
 
   const data = await res.json();
-  if (!res.ok) throw new Error(data.error || "Failed to create circuit")
+  if (!res.ok) throw new Error(data.error || "Failed to create raceways")
 
   return data;
 };
 
-export const updateCircuit = async (circuit_id, circuitData) => {
+export const updateRaceway = async (raceways_id, racewaysData) => {
   const token = localStorage.getItem("token");
   if (!token) throw new Error("No token found");
 
-  const res = await fetch(`${API_URL}/${circuit_id}`, {
+  const res = await fetch(`${API_URL}/${raceways_id}`, {
     method: "PUT",
     headers: {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(circuitData)
+    body: JSON.stringify(racewaysData)
   });
 
   const data = await res.json();
-  if (!res.ok) throw new Error(data.error || "Failed to update circuit");
+  if (!res.ok) throw new Error(data.error || "Failed to update raceways");
   return data;
 };

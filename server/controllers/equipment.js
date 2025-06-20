@@ -1,9 +1,13 @@
 import Equipment from '../models/equipment.js'
 
+import logger from '../utils/logger.js'
+
 // GET /equipments/:id
 export const getEquipment = async (req, res) => {
   try {
-    const equipment = await Equipment.findById(req.params.id) // .populate('circuits')
+    logger.info({project_id: req.params.id})
+    const equipment = await Equipment.find({ project: req.params.id}) // .populate('circuits')
+    logger.info({equipment: equipment})
     if (!equipment) return res.status(404).json({ error: 'Equipment not found' })
     res.json(equipment)
   } catch (err) {
@@ -65,7 +69,6 @@ export const createEquipment = async (req, res) => {
 export const getAllEquipment = async (req, res) => {
   try {
     const equipments = await Equipment.find({ users: req.user.id })
-      .populate('users')
       .populate('circuits')
     res.json(equipments)
   } catch (err) {

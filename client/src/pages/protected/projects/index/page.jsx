@@ -1,35 +1,35 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 
 import { getProjects } from '../../../../services/projects'
-import Project from "./components/project";
+import Project from "./components/project"
 
 import Button from '../../../components/library/button/component'
-import styles from "./styles.module.css";
+import styles from "./styles.module.css"
 
 const Projects = () => {
-  const [projects, setProjects] = useState([]);
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(true);
+  const [projects, setProjects] = useState([])
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const loadProjects = async () => {
       try {
-        const data = await getProjects();
-        setProjects(data);
+        const data = await getProjects()
+        setProjects(data)
       } catch (err) {
-        console.error(err);
-        setError(err.message || 'Error loading projects');
+        console.error(err)
+        setError(err.message || 'Error loading projects')
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    loadProjects();
-  }, []);
+    loadProjects()
+  }, [])
 
-  if (loading) return <p>Loading projects...</p>;
-  if (error) return <p style={{ color: 'red' }}>{error}</p>;
+  if (loading) return <p>Loading projects...</p>
+  if (error) return <p style={{ color: 'red' }}>{error}</p>
 
   return (
     <main className={ styles.container }>
@@ -49,7 +49,7 @@ const Projects = () => {
         </Link>
       </div>
     </main>
-  );
-};
+  )
+}
 
-export default Projects;
+export default Projects

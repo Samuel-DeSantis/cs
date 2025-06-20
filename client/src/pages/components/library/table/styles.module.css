@@ -1,0 +1,82 @@
+.container {
+  padding: 1rem;
+  font-family: system-ui, sans-serif;
+}
+
+.heading {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.empty {
+  font-size: 0.875rem;
+  color: #6b7280; /* muted foreground */
+}
+
+.wrapper {
+  overflow-x: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background-color: #fff;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+thead {
+  background-color: #f9fafb;
+  text-align: left;
+}
+
+th, td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+tr:hover {
+  background-color: #f1f5f9;
+}
+
+.linkButton {
+  background: none;
+  border: none;
+  color: #2563eb;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 0;
+}
+
+.linkButton:hover {
+  text-decoration: underline;
+}
+
+.linkButtonRed {
+  background: none;
+  border: none;
+  color: #dc2626;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 0;
+}
+
+.linkButtonRed:hover {
+  text-decoration: underline;
+}
+
+.error {
+  color: #dc2626;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.form_container {
+  display: flex;
+  max-width: 1280px;
+  margin: auto;
+  justify-content: space-around
+
+}

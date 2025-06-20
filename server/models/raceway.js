@@ -15,7 +15,11 @@ const racewaySchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Cable'
     }
-  }] // many-to-many link
+  }], // many-to-many link
+  project: { 
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Project' 
+  }, // optional back-reference
 }, {
   timestamps: true,
   discriminatorKey: 'kind',

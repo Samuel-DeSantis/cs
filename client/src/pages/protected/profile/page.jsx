@@ -19,7 +19,7 @@ const Profile = () => {
           setError(err.message || 'Error loading projects');
         } finally {
         setLoading(false);
-      }
+        }
       };
       loadUser();
     }, []);
@@ -27,14 +27,25 @@ const Profile = () => {
     if (loading) return <p>Loading projects...</p>;
     if (error) return <p style={{ color: 'red' }}>{error}</p>;
   return (
-    <div className={ styles.container }>
-      <h1>Your profile</h1>
-      <p>{ user.name }</p>
-      <p>{ user.username }</p>
-      <p>{ user.email }</p>
-      <p>{ user.role }</p>
-      <p>{ user.organization }</p>
-      <p>{ user.location }</p>
+
+    <div className={ styles.card }>
+      <h2 className={ styles.title }>{ user.name }</h2>
+      
+      <div className={ styles.meta }>
+        <span><strong>Username:</strong> { user.username }</span>
+        <span><strong>Email:</strong> { user.email }</span>
+      </div>
+
+      <div className={ styles.meta }>
+        <span><strong>Organization:</strong> { user.organization }</span>
+        <span><strong>Role:</strong> { user.role }</span>
+      </div>
+
+      <div className={ styles.meta }>
+        <span><strong>Location:</strong> { user.location }</span>
+        <span><strong>Phone:</strong> { user.phone }</span>
+      </div>
+
     </div>
   )
 }

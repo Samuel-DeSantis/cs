@@ -1,9 +1,9 @@
-import Raceway from '../models/raceway.js'
+import { Raceway } from '../models/raceway.js'
 
 // GET /raceways/:id
 export const getRaceway = async (req, res) => {
   try {
-    const raceway = await Raceway.findById(req.params.id) // .populate('circuits')
+    const raceway = await Raceway.find({project: req.params.id}) // .populate('circuits')
     if (!raceway) return res.status(404).json({ error: 'Raceway not found' })
     res.json(raceway)
   } catch (err) {
