@@ -1,3 +1,9 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .card {
   background: #fff;
   padding: 1.5rem;

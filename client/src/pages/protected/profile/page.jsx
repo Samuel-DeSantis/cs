@@ -28,24 +28,24 @@ const Profile = () => {
     if (error) return <p style={{ color: 'red' }}>{error}</p>;
   return (
 
-    <div className={ styles.card }>
-      <h2 className={ styles.title }>{ user.name }</h2>
+    <div className={ styles.container }>
+      <div className={ styles.card }>
       
-      <div className={ styles.meta }>
-        <span><strong>Username:</strong> { user.username }</span>
-        <span><strong>Email:</strong> { user.email }</span>
+        <h2 className={ styles.title }>{ user.name }</h2>
+      
+        <div className={ styles.meta }>
+          <span><strong>Username:</strong> { user.username }</span>
+          <span><strong>Email:</strong> { user.email }</span>
+        </div>
+        <div className={ styles.meta }>
+          <span><strong>Organization:</strong> { user.organization }</span>
+          <span><strong>Role:</strong> { user.role }</span>
+        </div>
+        <div className={ styles.meta }>
+          <span><strong>Location:</strong> { user.location }</span>
+          <span><strong>Phone:</strong> { user.phone }</span>
+        </div>
       </div>
-
-      <div className={ styles.meta }>
-        <span><strong>Organization:</strong> { user.organization }</span>
-        <span><strong>Role:</strong> { user.role }</span>
-      </div>
-
-      <div className={ styles.meta }>
-        <span><strong>Location:</strong> { user.location }</span>
-        <span><strong>Phone:</strong> { user.phone }</span>
-      </div>
-
     </div>
   )
 }

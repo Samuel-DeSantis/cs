@@ -1,5 +1,5 @@
 .container {
-  padding: 1rem;
+  /* padding: 1rem; */
   font-family: system-ui, sans-serif;
 }
 
@@ -28,7 +28,7 @@
 }
 
 thead {
-  background-color: #f9fafb;
+  background-color: #eeeeee;
   text-align: left;
 }
 
@@ -39,6 +39,10 @@ th, td {
 
 tr:hover {
   background-color: #f1f5f9;
+}
+
+.cell {
+  min-width: 125px;
 }
 
 .linkButton {

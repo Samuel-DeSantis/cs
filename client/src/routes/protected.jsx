@@ -9,6 +9,7 @@ import Circuits from "../pages/protected/projects/show/circuits/page"
 import Raceways from "../pages/protected/projects/show/raceways/page"
 import ProjectLayout from "../pages/protected/projects/show/layout"
 import ProjectPage from "../pages/protected/projects/show/page"
+import Materials from "../pages/protected/projects/show/materials/page"
 
 export const protectedRouter = [
 	{
@@ -50,6 +51,10 @@ export const protectedRouter = [
 					{
 						path: 'raceways',
 						element: <Raceways />
+					},
+										{
+						path: 'materials',
+						element: <Materials />
 					},
 				]
 			},

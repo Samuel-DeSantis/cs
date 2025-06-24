@@ -30,28 +30,27 @@ const Project = () => {
   }
   
   return (
-    <div className={ styles.card }>
-      <h2 className={ styles.title }>{ project.name }</h2>
+    <div className={ styles.container }>
+      <div className={ styles.card }>
+        <h2 className={ styles.title }>{ project.name }</h2>
       
-      <div className={ styles.meta }>
-        <span><strong>Client:</strong> { project.client }</span>
-        <span><strong>Location:</strong> { project.location }</span>
-      </div>
-
-      <p className={ styles.description }>{ project.description }</p>
-
-      <div className={ styles.dates }>
-        <span><strong>Start:</strong> { formatDate(project.startDate) }</span>
-        <span><strong>End:</strong> { formatDate(project.endDate) }</span>
-      </div>
-
-      <div className={ styles.users }>
-        <strong>Users:</strong>
-        <ul>
-          {project.users.map((user, index) => (
-            <li key={ index }>{ user.name } <span className={ styles.email }>({ user.email })</span></li>
-          ))}
-        </ul>
+        <div className={ styles.meta }>
+          <span><strong>Client:</strong> { project.client }</span>
+          <span><strong>Location:</strong> { project.location }</span>
+        </div>
+        <p className={ styles.description }>{ project.description }</p>
+        <div className={ styles.dates }>
+          <span><strong>Start:</strong> { formatDate(project.startDate) }</span>
+          <span><strong>End:</strong> { formatDate(project.endDate) }</span>
+        </div>
+        <div className={ styles.users }>
+          <strong>Users:</strong>
+          <ul>
+            {project.users.map((user, index) => (
+              <li key={ index }>{ user.name } <span className={ styles.email }>({ user.email })</span></li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   )

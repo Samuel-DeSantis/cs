@@ -1,52 +1,44 @@
-import { useState } from 'react'
+import { useContext } from 'react'
 
-import Button from '../button/component'
-import Copy from '../svgs/copy/component'
-import Edit from '../svgs/edit/component'
-import Trash from '../svgs/trash/component'
+import FormContext from '../../../../context/forms/FormContext.jsx'
 
-const Row = ({ keys, record, project_id, onDelete, onEdit, onCopy }) => {
+import { Copy, Edit, Trash } from '../svgs/index.jsx'
+import styles from './styles.module.css'
 
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+const Row = ({ keys, record }) => {
+
+  const {
+    setToEdit,
+    setToCopy,
+    setToDelete
+  } = useContext(FormContext)
+
+  const handleCopy = () => {
+    setToCopy?.(record)
+    setToEdit?.(null)
+  }
+
+  const handleEdit = () => {
+    setToEdit?.(record)
+    setToCopy?.(null)
+  }
 
   const handleDelete = async () => {
     if (!window.confirm('Are you sure you want to delete this record?')) return
-
-    setLoading(true)
-    setError('')
-
-    try {
-      await deleteItem({
-        project_id: project_id
-      })
-      if (onDelete) onDelete()
-    } catch {
-      console.error(err)
-      setError('Failed to delete record.')
-    } finally {
-      setLoading(false)
-    }
+    setToDelete?.(record)
   }
 
   return (
     <tr>
-      {keys.map(key => <td key={ key }>{ record[key] }</td>)}
-      <td>
-        <div onClick={() => onCopy?.(record)}>
-          <Copy />
-        </div>
-      </td>
-      <td>
-        <div onClick={() => onEdit?.(record)}>
-          <Edit />
-        </div>
-      </td>
-      <td>
-        <div onClick={ handleDelete }>
-          <Trash />
-        </div>
-      </td>
+      {keys.map(key => 
+        <td
+          key={ key }
+          className={ styles.cell }
+        >{ record[key] }</td>
+      )}
+      <td><div onClick={ handleCopy }><Copy /></div></td>
+      <td><div onClick={ handleEdit }><Edit /></div></td>
+      <td><div onClick={ handleDelete }><Trash /></div></td>
     </tr>
   )
 }

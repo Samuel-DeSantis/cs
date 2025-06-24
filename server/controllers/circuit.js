@@ -1,25 +1,9 @@
 import Circuit from '../models/circuit.js'
 import Project from '../models/project.js'
-import logger from '../utils/logger.js'
+import Equipment from '../models/equipment.js'
+import Logger from '../models/logger.js'
 
-// GET /circuits/:id
-export const getCircuit = async (req, res) => {
-  try {
-    logger.info({project_id: req.params.id})
-    
-    const circuit = await Circuit.find({project: req.params.id})
-      .populate('to')
-      .populate('from')
-      .populate('cable.type')
-      .populate('via')
-      .lean()
-    logger.info(circuit)
-    if (!circuit) return res.status(404).json({ error: 'Circuit not found' })
-    res.json(circuit)
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to retrieve circuit' })
-  }
-}
+import logger from '../utils/logger.js'
 
 // GET /circuits
 export const getAllCircuits = async (req, res) => {
@@ -33,6 +17,24 @@ export const getAllCircuits = async (req, res) => {
   }
 }
 
+// GET /circuits/:id
+export const getCircuit = async (req, res) => {
+  try {
+    const { id: project_id } = req.params
+    const circuit = await Circuit.find({ project: project_id })
+      .populate('to')
+      .populate('from')
+      .populate('cable.type')
+      .populate('via')
+      .lean()
+
+    if (!circuit) return res.status(404).json({ error: 'Circuit not found' })
+    res.status(200).json(circuit)
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to retrieve circuit' })
+  }
+}
+
 // POST /circuits
 export const createCircuit = async (req, res) => {
   const { project_id, circuit } = req.body
@@ -40,10 +42,15 @@ export const createCircuit = async (req, res) => {
   console.log('createCircuit', { project_id, circuit })
 
   try {
-    const new_circuit = await Circuit.create({ ...circuit })
-    await Project.findByIdAndUpdate(
+    const {
+      user: user,
+      circuit: circuitData
+    } = req.body
+    const circuit = await Circuit.create(circuitData)
+
+    await Equipment.findByIdAndUpdate(
       project_id, 
-      { $push: { circuits: new_circuit._id }},
+      { $push: { circuits: circuit._id }},
       { new: true }
     )
     res.status(201).json({ message: 'Circuit created', circuit })
