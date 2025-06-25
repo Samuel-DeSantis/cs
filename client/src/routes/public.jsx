@@ -1,8 +1,8 @@
 import Layout from "../pages/layouts/layout";
 import Home from "../pages/public/home/page";
 import PageNotFound from '../pages/public/pagenotfound/page';
-import SignIn from "../pages/public/signin/page";
-import SignUp from "../pages/public/signup/page";
+import SignIn from "../pages/public/sign_in/page";
+import SignUp from "../pages/public/sign_up/page";
 
 export const publicRouter = [
 	{
