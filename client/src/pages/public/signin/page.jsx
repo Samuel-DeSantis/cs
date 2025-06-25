@@ -8,6 +8,7 @@ import Card from "../../components/library/card/component"
 import Button from "../../components/library/button/component"
 
 import styles from './styles.module.css'
+import Alert from "../../components/library/alert/component"
 
 const SignIn = () => {
 
@@ -32,7 +33,7 @@ const SignIn = () => {
       navigate('/projects');
     } catch (err) {
       console.error(err);
-      setError('Something went wrong');
+      setError('Invalid email or password');
     }
   };
 
@@ -60,8 +61,13 @@ const SignIn = () => {
             required
           />
           <Button type='submit'>Sign in</Button>
-          {error && <p style={{ color: 'red' }}>{error}</p>}
+          {/* {error && <p style={{ color: 'red' }}>{error}</p>} */}
         </form>
+        {error && (
+          <div style={{ marginTop: '1rem' }}>
+            <Alert variant='error' onClose={() => setError('')}>{error}</Alert>
+          </div>
+        )}
       </Card>
     </div>
   )

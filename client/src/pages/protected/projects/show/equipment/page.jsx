@@ -2,10 +2,13 @@ import { useState, useEffect, useContext, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { getEquipment, createEquipment, updateEquipment, deleteEquipment } from '../../../../../services/equipment.js'
+
 import FormContext from '../../../../../context/forms/FormContext.jsx'
 import Form from '../../../../components/library/form/component.jsx'
-import Table from '../../../../components/library/table/component.jsx'
+// import Table from '../../../../components/library/table/component.jsx'
+import Table from '../../../../components/library/table/table.jsx'
 import styles from './styles.module.css'
+import { Copy, Edit, Trash } from '../../../../components/library/svgs/index.jsx'
 
 const Equipment = () => {
   const user_id = JSON.parse(localStorage.getItem('user')).id
@@ -66,12 +69,14 @@ const Equipment = () => {
           }
         })
       } else {
+        delete form.__v
+        delete form._id
         await createEquipment({
           user: user_id,
           equipment: {
-              project: project_id,
-              circuits: [],
-              ...form
+            ...form,
+            project: project_id,
+            circuits: []
           }
         })
       }
@@ -85,6 +90,71 @@ const Equipment = () => {
   if (loading) return <p>Loading...</p>
   if (error) return <p style={{ color: 'red' }}>{error}</p>
 
+  const default_options = {
+    sortable: true,
+    filterable: true,
+    width: '150px'
+  }
+
+  const columns = [
+    {
+      key: 'tag',
+      title: 'Tag',
+      ...default_options
+    },
+    {
+      key: 'type',
+      title: 'Type',
+      ...default_options
+    },
+    {
+      key: 'location',
+      title: 'Location',
+      ...default_options
+    },
+    {
+      key: 'copy',
+      title: 'Copy',
+      render: (_, record) => (
+        <div onClick={(e) => {
+          e.stopPropagation()
+          setToCopy(record)
+          setToEdit(null)
+          setForm(clearForm(record))
+        }}>
+          <Copy />
+        </div>
+      )
+    },
+    {
+      key: 'edit',
+      title: 'Edit',
+      render: (_, record) => (
+        <div onClick={(e) => {
+          e.stopPropagation()
+          setToEdit(record)
+          setToCopy(null)
+          setForm(clearForm(record))
+        }}>
+          <Edit />
+        </div>
+      )
+    },
+    {
+      key: 'delete',
+      title: 'Delete',
+      render: (_, record) => (
+        <div onClick={(e) => {
+          e.stopPropagation()
+          const message = 'Are you sure you want to delete this record?'
+          if (window.confirm(message)) setToDelete(record)
+        }}>
+          <Trash />
+        </div>
+      )
+    }
+  ]
+
   return (
     <div className={ styles.container }>
       <Form
@@ -93,13 +163,21 @@ const Equipment = () => {
         onSubmit={ handleSubmit }
       />
       <Table
+        data={ equipment }
+        columns={ columns }
+        filterable={ true }
+        sortable={ true }
+        // maxHeight='50%'
+      />
+
+      {/* <Table
         data={{
           headers: ['Tag', 'Type', 'Location', 'Copy', 'Edit', 'Delete'],
           content: equipment
         }}
         exclude={ exclude }
         // onDelete={ loadEquipment }
-      />
+      /> */}
     </div>
   )
 }

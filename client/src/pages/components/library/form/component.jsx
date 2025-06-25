@@ -7,6 +7,7 @@ import { getKeys, pick } from "../../../../utils/obj.js"
 import Input from "../input/component"
 import Button from "../button/component"
 import styles from './styles.module.css'
+import Alert from "../alert/component.jsx"
 
 const Form = ({ exclude, onSubmit }) => {
   const {
@@ -81,7 +82,11 @@ const Form = ({ exclude, onSubmit }) => {
         <Button type="button" onClick={ handleClear }>Clear</Button>
       </div>
       {message && <p style={{ color: 'green' }}>{ message }</p>}
-      {error && <p style={{ color: 'red' }}>{ error }</p>}
+      {error && (          
+        <div style={{ marginTop: '1rem' }}>
+          <Alert variant='error' onClose={() => setError('')}>{error}</Alert>
+        </div>
+      )}
     </form>
   )
 }
