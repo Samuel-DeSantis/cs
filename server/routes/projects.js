@@ -1,4 +1,4 @@
-import express from 'express';
+import express from 'express'
 
 import {
   getAllProjects,
@@ -6,20 +6,22 @@ import {
   createProject,
   updateProject,
   deleteProject,
-} from '../controllers/project.js';
-import { authenticateToken } from '../middleware/authenticateToken.js';
+} from '../controllers/project.js'
+import { authenticateToken } from '../middleware/authenticateToken.js'
 
-const router = express.Router();
+const router = express.Router()
 
 router.use(authenticateToken)
 
 router.route('/')
   .get(getAllProjects)
-  .post(createProject);
+  .post(createProject)
 
 router.route('/:id')
   .get(getProject)
   .put(updateProject)
-  .delete(deleteProject);
+
+router.route('/delete')
+  .post(deleteProject)
 
 export default router

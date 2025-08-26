@@ -1,0 +1,90 @@
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+	max-height: 900px;
+  margin: auto;
+}
+
+.formContainer {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+	box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2), 0 0.5px 1.5px 0 rgba(0,0,0,0.04);
+
+}
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inputGroup {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.buttonRow {
+  display: flex;
+  gap: 1rem;
+}
+
+.tableContainer {
+  overflow-x: auto;
+
+}
+
+.tableWrapper {
+  width: 100%;
+  border-radius: 0.5rem;
+  /* overflow: hidden; */
+	box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2), 0 0.5px 1.5px 0 rgba(0,0,0,0.04);
+
+}
+
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.tbody {
+  overflow-y: auto;
+}
+
+.table thead {
+  background-color: #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.table th, .table td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.table tr:hover {
+  background-color: #f3f4f6;
+}
+
+.table th {
+  font-weight: 600;
+}
+
+
+.table td svg {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.table td svg:hover {
+  transform: scale(1.1);
+}

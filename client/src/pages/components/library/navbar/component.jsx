@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
-import styles from './styles.module.css'
 import Logo from '../../../../assets/logo.svg'
-import Button from "../button/component";
+
+import { Button } from "@/components/ui/button"
+import { Inbox, Account, Lists } from '../../../components/library/icon/component'
+import styles from './styles.module.css'
 
 const NavBar = () => {
 
@@ -12,6 +14,8 @@ const NavBar = () => {
     localStorage.removeItem('token')
     window.location.href = '/sign_in'
   }
+
+  const messages = 0
 
   return (
     <nav className={ styles.nav }>
@@ -24,17 +28,33 @@ const NavBar = () => {
       <div className={ styles.right }>
         { token ? (
           <>
-            <Link to='/projects' className={ styles.link }>Projects</Link>
-            <Link to='/profile' className={ styles.link }>Profile</Link>
-            <Link to='/feedback' className={ styles.link }>
-              <Button>Feedback</Button>
+            <Link to='#' className="cursor-default">
+              <div className='relative'>
+                <Button disabled variant='link'>Messages</Button>
+                {/* <Inbox /> */}
+                { messages > 0 && <div className='text-white text-center items-center absolute top-0.5 right-1 bg-red-500 rounded-full w-3.5 h-3.5'></div>}
+              </div>
             </Link>
-            <a href="#" className={ styles.link } onClick={ logout }>Logout</a>
+            <Link to='/projects' >
+              <Button variant='link'>Projects</Button>
+            </Link>
+            <Link to='/profile' >
+              <Button variant='link'>Profile</Button>
+            </Link>
+            <Link to='/feedback' >
+              <Button variant='outline'>Feedback</Button>
+            </Link>
+            <Button variant='link' onClick={ logout }>Logout</Button>
+            {/* <a href="#" className={ styles.link } onClick={ logout }>Logout</a> */}
           </>
         ) : (
           <>
-            <Link to='/sign_in' className={ styles.link }>Sign In</Link>
-            <Link to='/sign_up' className={ styles.link }>Sign Up</Link>
+            <Link to='/sign_in' className={ styles.link }>
+              <Button variant='link'>Sign in</Button>
+            </Link>
+            <Link to='/sign_up' className={ styles.link }>
+              <Button variant='link'>Sign up</Button>
+            </Link>
           </>
         )}
       </div>

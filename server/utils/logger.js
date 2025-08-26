@@ -1,26 +1,32 @@
+const getTimestamp = () => new Date().toISOString()
+
 const logger = {
   info: (message) => {
     console.log(JSON.stringify({
       level: 'info',
-      message: message
+      message: message,
+      timestamp: getTimestamp()
     }, null, 2))
   },
   error: (message) => {
-    console.log(JSON.stringify({
+    console.error(JSON.stringify({
       level: 'error',
-      message: message
+      message: message,
+      timestamp: getTimestamp()
     }, null, 2))
   },
   debug: (message) => {
     console.log(JSON.stringify({
       level: 'debug',
-      message: message
+      message: message,
+      timestamp: getTimestamp()
     }, null, 2))
   },
   warn: (message) => {
-    console.log(JSON.stringify({
+    console.warn(JSON.stringify({
       level: 'warn',
-      message: message
+      message: message,
+      timestamp: getTimestamp()
     }, null, 2))
   }
 }

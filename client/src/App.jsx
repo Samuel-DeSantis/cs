@@ -4,15 +4,17 @@
 import './App.css'
 import { RouterProvider } from 'react-router-dom'
 
+import { ThemeProvider } from './components/theme-provider'
+
 import router from './routes/router'
 
 function App() {
   // const [count, setCount] = useState(0)
 
   return (
-    <>
+    <ThemeProvider>
       <RouterProvider router={router} />
-    </>
+    </ThemeProvider>
   )
 }
 
