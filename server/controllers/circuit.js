@@ -1,6 +1,7 @@
 import Circuit from '../models/circuit.js'
 import Project from '../models/project.js'
 import Equipment from '../models/equipment.js'
+import Cable from '../models/cable.js'
 import Logger from '../models/logger.js'
 
 import logger from '../utils/logger.js'
@@ -28,8 +29,15 @@ export const getCircuit = async (req, res) => {
       .populate('via')
       .lean()
 
+    const cables = await Cable.find().lean()
+    const equipment = await Equipment.find({ project: project_id}).lean()
+
     if (!circuit) return res.status(404).json({ error: 'Circuit not found' })
-    res.status(200).json(circuit)
+    res.status(200).json({
+      circuits: circuit, 
+      cables: cables,
+      equipment: equipment
+    })
   } catch (err) {
     res.status(500).json({ error: 'Failed to retrieve circuit' })
   }
@@ -49,7 +57,7 @@ export const createCircuit = async (req, res) => {
     const circuit = await Circuit.create(circuitData)
 
     await Equipment.findByIdAndUpdate(
-      project_id, 
+      circuit.project, 
       { $push: { circuits: circuit._id }},
       { new: true }
     )
@@ -76,24 +84,26 @@ export const updateCircuit = async (req, res) => {
 // DELETE /circuits/delete
 export const deleteCircuit = async (req, res) => {
   try {
-    const circuit_id = req.body.circuit_id
-    const project_id = req.body.project_id
+    const {
+      user_id: user,
+      circuit : circuitData
+    } = req.body
 
-    const circuit = await Circuit.findById(circuit_id)
+    const circuit = await Circuit.findById(circuitData._id)
     if (!circuit) return res.status(404).json({ error: 'Circuit not found' })
 
-    await Circuit.findByIdAndDelete(req.body.circuit_id)
+    await Circuit.findByIdAndDelete(circuit._id)
 
     if (circuit.project) {
       await Project.findByIdAndUpdate(
         project_id, 
-        { $pull: { circuits: circuit_id }},
+        { $pull: { circuits: circuit._id }},
         { new: true }
       )
     }
 
     logger.info({ deleted: circuit })
-    res.json({ message: 'Circuit deleted' })
+    res.status(200).json({ message: 'Circuit deleted' })
   } catch (err) {
     res.status(500).json({ error: 'Failed to delete circuit' })
   }

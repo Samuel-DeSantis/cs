@@ -10,6 +10,7 @@ import Raceways from "../pages/protected/projects/show/raceways/page"
 import ProjectLayout from "../pages/protected/projects/show/layout"
 import ProjectPage from "../pages/protected/projects/show/page"
 import Materials from "../pages/protected/projects/show/materials/page"
+import Messages from "../pages/protected/messages/page"
 
 export const protectedRouter = [
 	{
@@ -23,6 +24,10 @@ export const protectedRouter = [
 			{
 				path: 'profile',
 				element: <Profile />
+			},
+			{
+				path: 'messages',
+				element: <Messages />
 			},
 			{
 				path: 'projects',

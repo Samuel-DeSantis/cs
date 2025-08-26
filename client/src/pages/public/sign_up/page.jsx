@@ -1,12 +1,19 @@
 import { useRef, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
+
 import { signUpUser } from "../../../services/auth"
 
-import Input from "../../components/library/input/component"
-import Card from "../../components/library/card/component"
-import Button from "../../components/library/button/component"
-
-import styles from './styles.module.css'
+import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardDescription,
+  CardAction
+} from '@/components/ui/card'
+import { Label } from '@/components/ui/label'
+import { Input } from '@/components/ui/input'
 
 const SignUp = () => {
 
@@ -20,65 +27,80 @@ const SignUp = () => {
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    setMessage("");
+    e.preventDefault()
+    setError("")
+    setMessage("")
 
     const payload = {
       username: usernameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value,
-    };
+    }
 
     try {
-      const data = await signUpUser(payload) //res.json();
+      const data = await signUpUser(payload) //res.json()
 
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
+      localStorage.setItem("token", data.token)
+      localStorage.setItem("user", JSON.stringify(data.user))
 
-      setMessage("Signup successful!");
+      setMessage("Signup successful!")
       navigate('/projects')
     } catch (err) {
-      setError("Server error. Please try again later.", err);
+      setError("Server error. Please try again later.", err)
     }
-  };
+  }
 
   return (
-    <div className={ styles.container }>
-      <Card>
-        <h2>Create account</h2>
-        <form onSubmit={ handleSubmit } className="">
-          <Input
-            label='Username'
-            id='username'
-            name='username'
-            placeholder='johndoe'
-            type='text'
-            ref={ usernameRef }
-            required
-          />
-          <Input
-            label='Email'
-            id='email'
-            name='email'
-            placeholder='email@domain.com'
-            type='text'
-            ref={ emailRef }
-            required
-          />
-          <Input
-            label='Password'
-            id='password'
-            name='password'
-            placeholder='********'
-            type='password'
-            ref={ passwordRef }
-            required
-          />
-          <Button type='submit'>Create my account</Button>
-          {message && <p style={{ color: "green" }}>{ message }</p>}
-          {error && <p style={{ color: "red" }}>{ error }</p>}
-        </form>
+    <div className='flex justify-center items-center pt-36'>
+      <Card className='w-full max-w-sm dark:bg-neutral-950 border-0'>
+        <CardHeader>
+          <CardTitle>Create an account</CardTitle>
+          <CardDescription>Please enter your username, email, and password to create an account.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={ handleSubmit }>
+            <div className="flex flex-col gap-6">
+              <div className="grid gap-3">
+                <Label htmlFor='username'>Username</Label>
+                <Input
+                  id='username'
+                  name='username'
+                  type='text'
+                  placeholder='johndoe'
+                  ref={ usernameRef }
+                  required
+                />
+              </div>
+              <div className="grid gap-3">
+                <Label htmlFor='email'>Email</Label>
+                <Input
+                  id='email'
+                  name='email'
+                  type='email'
+                  placeholder='email@domain.com'
+                  ref={ emailRef }
+                  required
+                />
+              </div>
+              <div className="grid gap-3">
+                <Label htmlFor='email'>Password</Label>
+                <Input
+                  id='password'
+                  name='password'
+                  type='password'
+                  placeholder='---'
+                  ref={ passwordRef }
+                  required
+                />
+              </div>
+              <Button type='submit' className='grid gap-3 w-full'>Create my account</Button>
+            </div>
+          </form>
+        </CardContent>
+        <div className="mt-4 text-center text-sm">
+          Don&apos;t have an account?{'  '}
+          <Link to='/sign_in'><Button variant='link'>Sign in</Button></Link>       
+        </div>
       </Card>
     </div>
   )
@@ -87,11 +109,11 @@ const SignUp = () => {
 export default SignUp
 
 
-        // <div>
-        //   <label htmlFor="">Name</label>
-        //   <input
-        //     id='name'
-        //     name='name'
+// <div>
+//   <label htmlFor="">Name</label>
+//   <input
+//     id='name'
+//     name='name'
         //     type="text"
         //     ref={ nameRef }
         //   />
@@ -153,7 +175,7 @@ export default SignUp
         //     ref={ phoneRef }
         //   />
         // </div>
-      
+        
         // <div>
         //   <label htmlFor="">Location</label>
         //   <input
@@ -163,3 +185,34 @@ export default SignUp
         //     ref={ locationRef }
         //   />
         // </div>
+        
+                    {/* <Input
+                      label='Username'
+                      id='username'
+                      name='username'
+                      placeholder='johndoe'
+                      type='text'
+                      ref={ usernameRef }
+                      required
+                    />
+                    <Input
+                      label='Email'
+                      id='email'
+                      name='email'
+                      placeholder='email@domain.com'
+                      type='text'
+                      ref={ emailRef }
+                      required
+                    />
+                    <Input
+                      label='Password'
+                      id='password'
+                      name='password'
+                      placeholder='********'
+                      type='password'
+                      ref={ passwordRef }
+                      required
+                    /> 
+                    <Button type='submit'>Create my account</Button>*/}
+                    {/* {message && <p style={{ color: "green" }}>{ message }</p>}
+                    {error && <p style={{ color: "red" }}>{ error }</p>} */}

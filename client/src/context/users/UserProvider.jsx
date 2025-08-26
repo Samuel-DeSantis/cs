@@ -1,8 +1,6 @@
 import { useState } from "react"
 import UserContext from "./UserContext"
 
-// TODO: This will all need reviewed
-
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(false)
 

@@ -22,8 +22,6 @@ export const createEquipment = async (payload) => {
   const token = localStorage.getItem("token")
   if (!token) throw new Error('No token found')
 
-  console.log('Creating payload:', payload)
-
   const res = await fetch(API_URL, {
     method: "POST",
     headers: {
@@ -42,8 +40,6 @@ export const createEquipment = async (payload) => {
 export const updateEquipment = async (payload) => {
   const token = localStorage.getItem("token")
   if (!token) throw new Error("No token found")
-
-  console.log('Updating equipment:', payload)
 
   const res = await fetch(`${API_URL}/${payload.equipment._id}`, {
     method: "PUT",

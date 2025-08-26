@@ -115,4 +115,22 @@ router.get('/user', authenticateToken, async (req, res) => {
   }
 })
 
+router.put('/user/update', authenticateToken, async (req, res) => {
+  try {
+    const { user_id, ...userData} = req.body
+    delete userData.__v
+    // console.log(userData)
+    // const user = await User.findByIdAndUpdate(userData._id)
+    const user = await User.findByIdAndUpdate(user_id, userData, {
+      new: true,
+      runValidators: true,
+    })
+    console.log(user)
+    if (!user) return res.status(404).json({ error: 'User not found' })
+    res.status(200).json({ message: 'User updated', user: user })
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update user' })
+  }
+})
+
 export default router

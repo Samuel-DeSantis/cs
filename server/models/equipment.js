@@ -1,20 +1,20 @@
 import mongoose from 'mongoose'
 
-const defaultOptions = {
-  type: String,
-  trim: true
-}
-
 const equipmentSchema = new mongoose.Schema({
   tag: { 
+    type: String,
+    trim: true,
     required: true,
-    ...defaultOptions 
   },
   type: {
+    type: String,
+    trim: true,
     required: true,
-    ...defaultOptions
   },
-  location: { ...defaultOptions },
+  location: {
+    type: String,
+    trim: true
+  },
   circuits: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Circuit'
@@ -23,7 +23,7 @@ const equipmentSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Project' 
   }, // optional back-reference
-});
+})
 
-const Equipment = mongoose.model('Equipment', equipmentSchema);
+const Equipment = mongoose.model('Equipment', equipmentSchema)
 export default Equipment

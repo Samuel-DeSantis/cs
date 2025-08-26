@@ -6,7 +6,8 @@ export const getAllProjects = async (req, res) => {
     const projects = await Project.find({ users: req.user.id })
       .populate('users')
       .lean()
-    res.json(projects)
+
+    res.status(200).json(projects)
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch projects' })
   }
@@ -38,6 +39,7 @@ export const getProject = async (req, res) => {
 
 // PUT /projects/:id
 export const updateProject = async (req, res) => {
+  console.log(req.body)
   try {
     const updated = await Project.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -53,7 +55,7 @@ export const updateProject = async (req, res) => {
 // DELETE /projects/:id
 export const deleteProject = async (req, res) => {
   try {
-    const deleted = await Project.findByIdAndDelete(req.params.id)
+    const deleted = await Project.findByIdAndDelete(req.body.project_id)
     if (!deleted) return res.status(404).json({ error: 'Project not found' })
     res.json({ message: 'Project deleted' })
   } catch (err) {

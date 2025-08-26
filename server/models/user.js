@@ -1,19 +1,37 @@
 import mongoose from 'mongoose'
 import validator from 'validator'
 
-const defaultOptions = {
-	type: String,
-	trim: true
-}
-
 const userSchema = new mongoose.Schema({
-	name: { ...defaultOptions },
-	organization: { ...defaultOptions },
-	location: { ...defaultOptions },
+	name: { 
+		type: String,
+		trim: true
+ 	},
+	username: {
+		type: String,
+		trim: true,
+		unique: true,
+		required: true,
+	},
+	email: {
+		type: String,
+		trim: true,
+		unique: true,
+		required: true,
+		lowercase: true,
+		validate: [validator.isEmail, 'Invalid email address'],
+	},
 	password_hash: { 
 		type: String,
 		required: true,
 	},
+	organization: { 
+		type: String,
+		trim: true
+ 	},
+	location: { 
+		type: String,
+		trim: true
+ 	},
 	role: {
 		type: String,
 		enum: ['admin', 'engineer', 'technician'],
@@ -23,24 +41,20 @@ const userSchema = new mongoose.Schema({
 		type: Boolean,
 		default: true
 	},
-	username: {
-		required: true,
-		unique: true,
-		...defaultOptions
-	},
-	email: {
-		lowercase: true,
-		unique: true,
-		required: true,
-		validate: [validator.isEmail, 'Invalid email address'],
-		...defaultOptions
+	settings: {
+		theme: {
+			type: String,
+			enum: ['light', 'dark'],
+			default: 'light'
+		}
 	},
 	phone: {
+		type: String,
+		trim: true,
 		validate: {
 			validator: v => validator.isMobilePhone(v, 'any'),
 			message: 'Invalid phone number'
-		},
-		...defaultOptions
+		}
 	},
 	projects: [{
 		type: mongoose.Schema.Types.ObjectId,

@@ -1,8 +1,8 @@
 const API_URL = 'http://localhost:8080/api/raceways'
 
 // /pages/protected/projects/show/raceways/page.js
-export const getRaceways = async (project_id) => {
-  const token = localStorage.getItem('token');
+export const getRaceway = async (project_id) => {
+  const token = localStorage.getItem('token')
   if (!token) { throw new Error('No token found') }
 
   const response = await fetch(API_URL + `/${project_id}`, {
@@ -11,17 +11,17 @@ export const getRaceways = async (project_id) => {
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
-  });
+  })
 
-  const data = await response.json();
+  const data = await response.json()
   if (!response.ok) throw new Error(data.error || 'Failed to fetch raceways')
 
-  return data;
+  return data
 }
 
 // /pages/protected/racewayss/new/page.js
-export const createRaceway = async (racewaysData) => {
-  const token = localStorage.getItem("token");
+export const createRaceway = async (payload) => {
+  const token = localStorage.getItem("token")
   if (!token) throw new Error('No token found')
 
   const res = await fetch(API_URL, {
@@ -30,19 +30,36 @@ export const createRaceway = async (racewaysData) => {
       'Authorization': `Bearer ${token}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(racewaysData),
-  });
+    body: JSON.stringify(payload),
+  })
 
-  const data = await res.json();
+  const data = await res.json()
   if (!res.ok) throw new Error(data.error || "Failed to create raceways")
 
-  return data;
-};
+  return data
+}
 
-// /pages/protected/racewayss/new/page.js
+// /pages/protected/raceways/new/page.js
+export const updateRaceway = async (payload) => {
+  const token = localStorage.getItem("token")
+  if (!token) throw new Error("No token found")
+  
+  const res = await fetch(`${API_URL}/${payload.raceway._id}`, {
+    method: "PUT",
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  })
+
+  const data = await res.json()
+  if (!res.ok) throw new Error(data.error || "Failed to update raceways")
+  return data
+}
 
 export const deleteRaceway = async (raceways_id) => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token")
   if (!token) throw new Error('No token found')
 
   const res = await fetch(API_URL + '/delete', {
@@ -52,28 +69,10 @@ export const deleteRaceway = async (raceways_id) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify( raceways_id ),
-  });
+  })
 
-  const data = await res.json();
+  const data = await res.json()
   if (!res.ok) throw new Error(data.error || "Failed to create raceways")
 
-  return data;
-};
-
-export const updateRaceway = async (raceways_id, racewaysData) => {
-  const token = localStorage.getItem("token");
-  if (!token) throw new Error("No token found");
-
-  const res = await fetch(`${API_URL}/${raceways_id}`, {
-    method: "PUT",
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(racewaysData)
-  });
-
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.error || "Failed to update raceways");
-  return data;
-};
+  return data
+}

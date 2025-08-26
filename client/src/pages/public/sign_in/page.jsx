@@ -1,14 +1,19 @@
 import { useRef, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 
 import { signInUser } from "../../../services/auth"
 
-import Input from "../../components/library/input/component"
-import Card from "../../components/library/card/component"
-import Button from "../../components/library/button/component"
-
-import styles from './styles.module.css'
-import Alert from "../../components/library/alert/component"
+import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardDescription,
+  CardAction
+} from '@/components/ui/card'
+import { Label } from '@/components/ui/label'
+import { Input } from '@/components/ui/input'
 
 const SignIn = () => {
 
@@ -38,31 +43,45 @@ const SignIn = () => {
   };
 
   return (
-    <div className={ styles.container }>
-      <Card>
-        <h2>Login to your account</h2>
-        <form onSubmit={ handleSubmit }>
-          <Input
-            label='Email'
-            id='email'
-            name='email'
-            placeholder='email@domain.com'
-            type='text'
-            ref={ emailRef }
-            required
-          />
-          <Input
-            label='Password'
-            id='password'
-            name='password'
-            placeholder='********'
-            type='password'
-            ref={ passwordRef }
-            required
-          />
-          <Button type='submit'>Sign in</Button>
-          {/* {error && <p style={{ color: 'red' }}>{error}</p>} */}
-        </form>
+    <div className='flex justify-center items-center pt-36'>
+      <Card className='w-full max-w-sm dark:bg-neutral-950 border-0'>
+        <CardHeader>
+          <CardTitle>Sign in to your account</CardTitle>
+          <CardDescription>Please enter your email and password to sign in.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={ handleSubmit }>
+            <div className="flex flex-col gap-6">
+              <div className="grid gap-3">
+                <Label htmlFor='email'>Email</Label>
+                <Input
+                  id='email'
+                  name='email'
+                  type='email'
+                  placeholder='email@domain.com'
+                  ref={ emailRef }
+                  required
+                />
+              </div>
+              <div className="grid gap-3">
+                <Label htmlFor='email'>Password</Label>
+                <Input
+                  id='password'
+                  name='password'
+                  type='password'
+                  placeholder='---'
+                  ref={ passwordRef }
+                  required
+                />
+              </div>
+              <Button type='submit' className='grid gap-3 w-full'>Sign in</Button>
+            </div>
+          </form>
+        </CardContent>
+        <div className="mt-4 text-center text-sm">
+          Don&apos;t have an account?{'  '}
+          <Link to='/sign_up'><Button variant='link'>Sign Up</Button></Link>
+        </div>
         {error && (
           <div style={{ marginTop: '1rem' }}>
             <Alert variant='error' onClose={() => setError('')}>{error}</Alert>
@@ -73,24 +92,3 @@ const SignIn = () => {
   )
 }
 export default SignIn
-
-        {/* <div>
-          <label htmlFor="email">Email</label>
-          <input
-            id='email'
-            name='email'
-            type="text"
-            ref={ emailRef }
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            id='password'
-            name='password'
-            type="password"
-            ref={ passwordRef }
-            required
-          />
-        </div> */}

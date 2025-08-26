@@ -43,15 +43,15 @@ export const createEquipment = async (req, res) => {
       { new: true }
     )
 
-    await Logger.create({
-      user: user,
-      category: 'equipment',
-      action: 'create',
-      metadata: {
-        equipment_id: equipment._id,
-        project_id: equipment.project
-      }
-    })
+    // await Logger.create({
+    //   user: user,
+    //   category: 'equipment',
+    //   action: 'create',
+    //   metadata: {
+    //     equipment_id: equipment._id,
+    //     project_id: equipment.project
+    //   }
+    // })
 
     res.status(201).json({ message: 'Equipment created', equipment })
   } catch (err) {
@@ -73,15 +73,15 @@ export const updateEquipment = async (req, res) => {
       runValidators: true,
     })
 
-    await Logger.create({
-      user: user,
-      category: 'equipment',
-      action: 'update',
-      metadata: {
-        equipment: equipment,
-        project_id: equipment.project
-      }
-    })
+    // await Logger.create({
+    //   user: user,
+    //   category: 'equipment',
+    //   action: 'update',
+    //   metadata: {
+    //     equipment: equipment,
+    //     project_id: equipment.project
+    //   }
+    // })
 
     if (!equipment) return res.status(404).json({ error: 'Equipment not found' })
     res.status(200).json({ message: 'Equipment updated', equipment: equipment })
@@ -114,15 +114,15 @@ export const deleteEquipment = async (req, res) => {
       )
     }
 
-    await Logger.create({
-      user: req.body.user,
-      category: 'equipment',
-      action: 'delete',
-      metadata: {
-        equipment: equipment,
-        project_id: equipment.project
-      }
-    })
+    // await Logger.create({
+    //   user: req.body.user,
+    //   category: 'equipment',
+    //   action: 'delete',
+    //   metadata: {
+    //     equipment: equipment,
+    //     project_id: equipment.project
+    //   }
+    // })
     
     res.status(200).json({ success: true, message: 'Equipment deleted' })
   } catch (err) {

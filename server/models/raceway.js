@@ -24,21 +24,22 @@ const racewaySchema = new mongoose.Schema({
   timestamps: true,
   discriminatorKey: 'kind',
   collection: 'raceways'
-});
+})
 
-const Raceway = mongoose.model('Raceway', racewaySchema);
+const Raceway = mongoose.model('Raceway', racewaySchema)
 
 const Conduit = Raceway.discriminator('Conduit', new mongoose.Schema({
   type: String,
   material: String,
   size: Number,
   id: Number,
-}));
+}))
 
 const Tray = Raceway.discriminator('Tray', new mongoose.Schema({
   type: String,
+  material: String,
   width: Number,
-  height: Number
-}));
+  height: Number,
+}))
 
-export { Raceway, Conduit, Tray };
+export { Raceway, Conduit, Tray }
